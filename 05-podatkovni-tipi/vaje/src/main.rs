@@ -61,6 +61,35 @@ nasledji clen
 prejsnji clen
  */
 
+
+fn collect(&self) -> u32 {
+    match self {
+        Izraz::Konstanta(_) => 1,
+        Izraz::Operacija(
+            l,
+            _,
+            r, ) => l.collect() + r.collect(),
+            }
+    }
+fn izpis(&self) -> String {
+    match self {
+        Izraz::Konstanta(v) => v.to_string(),
+        Izraz::Operacija(
+            l,
+            bin_operacija,
+            r) => {
+                let li = l.izpis();
+                let ri = r.izpis();
+                match bin_operacija {
+                    BinOperacija::Plus => format!("({} + {})",li, ri),
+                    BinOperacija::Minus => format!("({} - {})",li, ri),
+                    BinOperacija::Times => format!("({} * {})",li, ri),
+                }
+            }
+    }
+}
+
+
 fn main() {
     let mut an= Aritmeticnozaporedje::new (1, 1);
     let mut bn = Aritmeticnozaporedje:: new (5, -4);
